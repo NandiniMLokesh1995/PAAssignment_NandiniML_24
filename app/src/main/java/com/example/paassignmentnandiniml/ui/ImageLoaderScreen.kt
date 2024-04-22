@@ -22,38 +22,39 @@ import com.example.paassignmentnandiniml.repository.ImageViewModel
 
 @Composable
 fun ImageLoaderScreen(imgViewModel: ImageViewModel) {
-    val lazyImageItems = imgViewModel.items.collectAsLazyPagingItems()
-
-
+    val lazyImageItems = imgViewModel.items.value?.collectAsLazyPagingItems()
+    val itemCount =lazyImageItems?.itemCount
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(10.dp)
     ) {
-        items(lazyImageItems.itemCount) {
+        if (itemCount != null) {
+            items(itemCount) {
 
-            Box(modifier = Modifier.padding(4.dp)) {
-                Surface(
-                    border = BorderStroke(2.dp, Color.Black),
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    val url: String? = lazyImageItems.get(it)?.let {
-                        it.thumbnail.domain.plus("/").plus(it.thumbnail.basePath).plus("/10/")
-                            .plus(it.thumbnail.key)
+                Box(modifier = Modifier.padding(4.dp)) {
+                    Surface(
+                        border = BorderStroke(2.dp, Color.Black),
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        val url: String? = lazyImageItems.get(it)?.let {
+                            it.thumbnail.domain.plus("/").plus(it.thumbnail.basePath).plus("/10/")
+                                .plus(it.thumbnail.key)
+                        }
+
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(url)
+                                .crossfade(true)
+                                .placeholder(R.drawable.ic_loading_placeholder) // Your placeholder image
+                                .error(R.drawable.ic_error_placeholder) // Your error image
+                                .build(),
+                            contentDescription = "Loaded image",
+                            modifier = Modifier.fillMaxSize(60f)
+                        )
                     }
-
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(url)
-                            .crossfade(true)
-                            .placeholder(R.drawable.ic_loading_placeholder) // Your placeholder image
-                            .error(R.drawable.ic_error_placeholder) // Your error image
-                            .build(),
-                        contentDescription = "Loaded image",
-                        modifier = Modifier.fillMaxSize(60f)
-                    )
                 }
-            }
 
+            }
         }
     }
 }

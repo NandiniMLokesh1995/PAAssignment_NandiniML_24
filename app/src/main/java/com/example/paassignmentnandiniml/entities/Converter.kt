@@ -5,10 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class Converter {
+    private val gson = Gson()
+
     @TypeConverter
     fun fromThumbnail(thumbnail: ThumbnailEntity?): String? {
         if (thumbnail == null) return null
-        val gson = Gson()
         val type = object : TypeToken<ThumbnailEntity>() {}.type
         return gson.toJson(thumbnail, type)
     }
@@ -16,7 +17,6 @@ class Converter {
     @TypeConverter
     fun toThumbnail(thumbnailString: String?): ThumbnailEntity? {
         if (thumbnailString == null) return null
-        val gson = Gson()
         val type = object : TypeToken<ThumbnailEntity>() {}.type
         return gson.fromJson(thumbnailString, type)
     }
@@ -24,7 +24,6 @@ class Converter {
     @TypeConverter
     fun fromIntegerList(qualities: List<Int>?): String? {
         if (qualities == null) return null
-        val gson = Gson()
         val type = object : TypeToken<List<Int>>() {}.type
         return gson.toJson(qualities, type)
     }
@@ -32,7 +31,6 @@ class Converter {
     @TypeConverter
     fun toIntegerList(qualitiesString: String?): List<Int>? {
         if (qualitiesString == null) return null
-        val gson = Gson()
         val type = object : TypeToken<List<Int>>() {}.type
         return gson.fromJson(qualitiesString, type)
     }

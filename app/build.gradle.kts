@@ -1,5 +1,5 @@
 import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-val room_version = "2.4.2"
+val room_version = "2.6.1"
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -84,6 +84,10 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     //gson
     implementation("com.google.code.gson:gson:2.8.6")
+    //
+    // Kotlin Coroutines
+    val coroutines_version="1.3.9"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

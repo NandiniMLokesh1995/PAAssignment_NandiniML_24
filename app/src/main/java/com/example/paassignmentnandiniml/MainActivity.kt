@@ -18,10 +18,12 @@ import com.example.paassignmentnandiniml.ui.theme.PAAssignmentNandiniMLTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val viewModel : ImageViewModel by viewModels{
+            ImageViewModelFactory(ImageRepository(ApiService,AppDatabase.getDatabase(this)),this)
+        }
+
         setContent {
-            val viewModel : ImageViewModel by viewModels{
-                ImageViewModelFactory(ImageRepository(ApiService,AppDatabase.getDatabase(this)))
-            }
             PAAssignmentNandiniMLTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
