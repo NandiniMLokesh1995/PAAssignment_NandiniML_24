@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    ImageLoaderScreen(viewModel, this)
+                    ImageLoaderScreen(viewModel)
                 }
             }
         }
