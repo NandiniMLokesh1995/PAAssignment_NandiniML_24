@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.paassignmentnandiniml"
-        minSdk = 34
+        minSdk = 30
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -66,7 +66,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    val ktor_version ="2.3.0"
     //ktor
     implementation ("io.ktor:ktor-client-android:1.5.0")
     implementation ("io.ktor:ktor-client-serialization:1.5.0")

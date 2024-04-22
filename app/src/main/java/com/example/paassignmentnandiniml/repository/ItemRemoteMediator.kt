@@ -1,8 +1,8 @@
 package com.example.paassignmentnandiniml.repository
 
-import android.net.http.HttpException
 import androidx.paging.*
 import androidx.room.withTransaction
+import coil.network.HttpException
 import com.example.paassignmentnandiniml.entities.CoverageItemEntity
 import com.example.paassignmentnandiniml.network.ApiService
 import com.example.paassignmentnandiniml.network.AppDatabase
@@ -15,15 +15,20 @@ class ItemRemoteMediator(
 ) : RemoteMediator<Int, CoverageItemEntity>() {
 
     private val imageDao = database.imageDao()
-    private var currentPage = 10// Start with first page
+    private var currentPage = 30// Start with first page
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, CoverageItemEntity>): MediatorResult {
+    override suspend fun load(
+        loadType: LoadType,
+        state: PagingState<Int, CoverageItemEntity>
+    ): MediatorResult {
         try {
             val pageKey = when (loadType) {
-                LoadType.REFRESH -> 1
+                LoadType.REFRESH -> 30
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true) // Data loaded in order, no prepend
                 LoadType.APPEND -> {
-                    val lastItem = state.lastItemOrNull() ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    val lastItem = state.lastItemOrNull() ?: return MediatorResult.Success(
+                        endOfPaginationReached = true
+                    )
                     currentPage + 10
                 }
             }
@@ -45,6 +50,5 @@ class ItemRemoteMediator(
             return MediatorResult.Error(e)
         }
     }
-
-
 }
+

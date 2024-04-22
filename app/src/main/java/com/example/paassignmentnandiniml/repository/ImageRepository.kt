@@ -13,8 +13,9 @@ class ImageRepository(private val apiService: ApiService, private val appDatabas
     fun getItems(): Flow<PagingData<CoverageItemEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 100,
-                enablePlaceholders = false
+                pageSize = 400,
+                prefetchDistance = 5,      // Fetch the next page 5 items before the list end
+                enablePlaceholders = true
             ),
             remoteMediator = ItemRemoteMediator(apiService, appDatabase),
             pagingSourceFactory = { appDatabase.imageDao().itemsByPage() }
